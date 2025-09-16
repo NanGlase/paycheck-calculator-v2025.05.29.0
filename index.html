@@ -196,10 +196,10 @@
             </div>
         </div>
         <div class="input-group">
-            <label for="philhealth">PhilHealth Contribution:</label>
+            <label for="philhealth">PhilHealth Contribution (%):</label>
             <div class="count-box">
                 <button type="button" onclick="decrementPhilhealth()">-</button>
-                <input type="number" id="philhealth" name="philhealth" class="input-field" value="112.50" step="0.50">
+                <input type="number" id="philhealth" name="philhealth" class="input-field" value="2.5" step="0.1">
                 <button type="button" onclick="incrementPhilhealth()">+</button>
             </div>
         </div>
@@ -212,7 +212,7 @@
             <p><span>Gross Salary:</span> <span id="grosssalary"></span></p>
             <p><span id="sssLabel">SSS (5.0%):</span> <span id="sssDeduction"></span></p>
             <p><span id="pagibigLabel">Pag-ibig (2.0%):</span> <span id="pagibigDeduction"></span></p>
-            <p><span>PhilHealth (Fxd):</span> <span id="philhealthAmount"></span></p>
+            <p><span id="philhealthLabel">PhilHealth (2.5%):</span> <span id="philhealthAmount"></span></p>
             <p><span>Total deduction:</span> <span id="totalDeduction"></span></p>
             <p><span>NET Salary:</span> <span id="netSalary"></span></p>
         </div>
@@ -270,15 +270,15 @@
         let fixedRate = parseFloat(document.getElementById('fixed').value);
         let sssContribution = parseFloat(document.getElementById('sss').value);
         let pagibigContribution = parseFloat(document.getElementById('pagibig').value);
-        let philhealthAmount = parseFloat(document.getElementById('philhealth').value);
+        let philhealthContribution = parseFloat(document.getElementById('philhealth').value);
 
         let grossSalary = (daysWorked * ratePerDay + fixedRate);
         let bracket = getSSSBracket(grossSalary);
 
         let sssDeduction = (bracket * (sssContribution / 100)).toFixed(2);
         let pagibigDeduction = (grossSalary * (pagibigContribution / 100)).toFixed(2);
-        let totalPhilhealth = philhealthAmount.toFixed(2);
-        let totalDeduction = (parseFloat(sssDeduction) + parseFloat(pagibigDeduction) + parseFloat(totalPhilhealth)).toFixed(2);
+        let philhealthDeduction = (grossSalary * (philhealthContribution / 100)).toFixed(2);
+        let totalDeduction = (parseFloat(sssDeduction) + parseFloat(pagibigDeduction) + parseFloat(philhealthDeduction)).toFixed(2);
         let netSalary = (grossSalary - totalDeduction).toFixed(2);
 
         blinkResults();
@@ -286,12 +286,13 @@
         document.getElementById('grosssalary').textContent = 'PHP ' + grossSalary.toFixed(2);
         document.getElementById('sssDeduction').textContent = 'PHP ' + sssDeduction;
         document.getElementById('pagibigDeduction').textContent = 'PHP ' + pagibigDeduction;
-        document.getElementById('philhealthAmount').textContent = 'PHP ' + totalPhilhealth;
+        document.getElementById('philhealthAmount').textContent = 'PHP ' + philhealthDeduction;
         document.getElementById('totalDeduction').textContent = 'PHP ' + totalDeduction;
         document.getElementById('netSalary').textContent = 'PHP ' + netSalary;
 
         updateSSSLabel();
         updatePagibigLabel();
+		updatePhilhealthLabel();
     }
 
     function blinkResults() {
@@ -310,7 +311,12 @@
         document.getElementById('pagibigLabel').textContent = `Pag-ibig (${pagibig.toFixed(1)}%):`;
     }
 
-    function incrementDays() {
+    function updatePhilhealthLabel() {
+        const philhealth = parseFloat(document.getElementById('philhealth').value);
+        document.getElementById('philhealthLabel').textContent = `PhilHealth (${philhealth.toFixed(1)}%):`;
+    }
+	
+	function incrementDays() {
         const daysInput = document.getElementById('days');
         daysInput.value = parseInt(daysInput.value) + 1;
     }
@@ -367,12 +373,13 @@
 
     function incrementPhilhealth() {
         const input = document.getElementById('philhealth');
-        input.value = (parseFloat(input.value) + 0.5).toFixed(2);
+        input.value = (parseFloat(input.value) + 0.1).toFixed(1);
     }
 
     function decrementPhilhealth() {
         const input = document.getElementById('philhealth');
         let val = parseFloat(input.value);
-        if (val > 0) input.value = (val - 0.5).toFixed(2);
+        if (val > 0) input.value = (val - 0.1).toFixed(1);
     }
 </script>
+
