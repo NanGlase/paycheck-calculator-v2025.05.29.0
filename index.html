@@ -47,7 +47,7 @@
         background-color: #ccc; /* Lighter shade on hover */
     }
     .count-box input[type="number"] {
-        width: 78px;
+        width: 70px;
         padding: 9px;
         margin: 0 5px;
 		border: 1px solid #ccc;
@@ -159,7 +159,7 @@
             <label for="days">Number of days (OT):</label>
             <div class="count-box">
                 <button type="button" onclick="decrementDays()">-</button>
-                <input type="number" id="days" name="days" class="input-field" value="0" step="1">
+                <input type="number" id="days" name="days" class="input-field" value="0" step="any">
                 <button type="button" onclick="incrementDays()">+</button>
             </div>
         </div>
@@ -167,7 +167,7 @@
             <label for="rate">Rate per OT (PHP):</label>
             <div class="count-box">
                 <button type="button" onclick="decrementRate()">-</button>
-                <input type="number" id="rate" name="rate" class="input-field" value="870.00" step="1">
+                <input type="number" id="rate" name="rate" class="input-field" value="870" step="any">
                 <button type="button" onclick="incrementRate()">+</button>
             </div>
         </div>
@@ -175,7 +175,7 @@
             <label for="fixed">Fixed Rate (PHP):</label>
             <div class="count-box">
                 <button type="button" onclick="decrementfixed()">-</button>
-                <input type="number" id="fixed" name="fixed" class="input-field" value="11310.00" step="1">
+                <input type="number" id="fixed" name="fixed" class="input-field" value="11310" step="any">
                 <button type="button" onclick="incrementfixed()">+</button>
             </div>
         </div>
@@ -265,7 +265,7 @@
     }
 
     function calculateSalary() {
-        let daysWorked = parseInt(document.getElementById('days').value);
+        let daysWorked = parseFloat(document.getElementById('days').value);
         let ratePerDay = parseFloat(document.getElementById('rate').value);
         let fixedRate = parseFloat(document.getElementById('fixed').value);
         let sssContribution = parseFloat(document.getElementById('sss').value);
@@ -318,35 +318,35 @@
 	
 	function incrementDays() {
         const daysInput = document.getElementById('days');
-        daysInput.value = parseInt(daysInput.value) + 1;
+        daysInput.value = parseFloat(daysInput.value) + 1;
     }
 
     function decrementDays() {
         const daysInput = document.getElementById('days');
-        let val = parseInt(daysInput.value);
+        let val = parseFloat(daysInput.value);
         if (val > 0) daysInput.value = val - 1;
     }
 
     function incrementRate() {
         const rateInput = document.getElementById('rate');
-        rateInput.value = (parseFloat(rateInput.value) + 10).toFixed(2);
+        rateInput.value = (parseFloat(rateInput.value) + 10);
     }
 
     function decrementRate() {
         const rateInput = document.getElementById('rate');
         let val = parseFloat(rateInput.value);
-        if (val > 10) rateInput.value = (val - 10).toFixed(2);
+        if (val > 10) rateInput.value = (val - 10);
     }
 
     function incrementfixed() {
         const fixedInput = document.getElementById('fixed');
-        fixedInput.value = (parseFloat(fixedInput.value) + 100).toFixed(2);
+        fixedInput.value = parseFloat(fixedInput.value) + 10;
     }
 
     function decrementfixed() {
         const fixedInput = document.getElementById('fixed');
         let val = parseFloat(fixedInput.value);
-        if (val > 100) fixedInput.value = (val - 100).toFixed(2);
+        if (val > 100) fixedInput.value = val - 10;
     }
 
     function incrementSSS() {
