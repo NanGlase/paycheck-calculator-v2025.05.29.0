@@ -167,7 +167,7 @@
             <label for="rate">Rate per OT (PHP):</label>
             <div class="count-box">
                 <button type="button" onclick="decrementRate()">-</button>
-                <input type="number" id="rate" name="rate" class="input-field" value="870" step="1">
+                <input type="number" id="rate" name="rate" class="input-field" value="870.00" step="1">
                 <button type="button" onclick="incrementRate()">+</button>
             </div>
         </div>
@@ -175,7 +175,7 @@
             <label for="fixed">Fixed Rate (PHP):</label>
             <div class="count-box">
                 <button type="button" onclick="decrementfixed()">-</button>
-                <input type="number" id="fixed" name="fixed" class="input-field" value="11310" step=".1">
+                <input type="number" id="fixed" name="fixed" class="input-field" value="11310.00" step="1">
                 <button type="button" onclick="incrementfixed()">+</button>
             </div>
         </div>
@@ -382,4 +382,3 @@
         if (val > 0) input.value = (val - 0.1).toFixed(1);
     }
 </script>
-
